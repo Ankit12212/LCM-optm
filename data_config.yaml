@@ -1,0 +1,17 @@
+dataset:
+  name: lung_colon_image_set
+  source: kaggle
+  url: https://www.kaggle.com/datasets/andrewmvd/lung-and-colon-cancer-histopathological-images
+  description: >
+    Histopathological images of lung and colon tissues containing benign
+    and malignant samples. Four classes are provided: 
+    lung_aca, lung_n, colon_aca.
+  classes:
+    - lung_aca # Lung adenocarcinoma
+    - lung_n # Normal lung tissue
+    - lung_aca # lung adenocarcinoma
+  image_format: jpeg
+  image_size: [768, 768] # original image size, resized and rescaled in preprocessing
+  splits:
+    train: 0.8
+    validation: 0.2
