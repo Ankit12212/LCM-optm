@@ -25,46 +25,43 @@ The workflow in `notebook.ipynb` is organized as follows:
 
 1. **Library Imports**
 
-   - The notebook starts by importing essential libraries: NumPy, Pandas, Matplotlib, PIL, OpenCV, TensorFlow, and Keras.
+   - Imports essential libraries: NumPy, Pandas, Matplotlib, PIL, OpenCV, TensorFlow, and Keras for data handling, visualization, and modeling.
 
 2. **Data Extraction**
 
-   - The dataset is provided as `archive.zip`. Extraction code is included but commented out; users can uncomment to extract the data into `lung_colon_image_set/`.
+   - The dataset is provided as `archive.zip`. Extraction code is included (commented out) to extract images into `lung_colon_image_set/`.
 
 3. **Data Exploration & Visualization**
 
-   - The notebook visualizes random images from each lung cancer class (`lung_aca`, `lung_n`, `lung_scc`) using Matplotlib and PIL to help users understand the dataset.
+   - Visualizes random images from each lung cancer class (`lung_aca`, `lung_n`, `lung_scc`) using Matplotlib and PIL to understand the dataset.
 
 4. **Dataset Preparation**
 
-   - TensorFlow's `image_dataset_from_directory` is used to load images and infer labels from folder names.
-   - The dataset is split into training and validation sets (80/20 split), with images resized to 256x256 pixels.
-   - Images are normalized to the [0, 1] range using a custom function and TensorFlow's data pipeline.
+   - Loads images using TensorFlow's `image_dataset_from_directory`, inferring labels from folder names.
+   - Splits the dataset into training and validation sets (80/20 split), resizes images to 256x256 pixels, and normalizes pixel values to [0, 1].
 
 5. **Model Construction**
 
-   - A Sequential CNN model is built with multiple Conv2D and MaxPooling2D layers, followed by GlobalAveragePooling2D and Dense layers.
-   - BatchNormalization and Dropout are used for regularization.
+   - Defines a function to build a Sequential CNN model with Conv2D, MaxPooling2D, GlobalAveragePooling2D, Dense, BatchNormalization, and Dropout layers.
+   - The model is designed for multi-class classification (3 classes).
 
-6. **Model Compilation**
+6. **Callbacks Setup**
 
-   - The model is compiled with `sparse_categorical_crossentropy` loss, Adam optimizer, and accuracy metric.
+   - Configures EarlyStopping, ReduceLROnPlateau, TensorBoard, and ModelCheckpoint to monitor training, log metrics, and save the best model.
 
-7. **Callbacks Setup**
+7. **Learning Rate Tuning**
 
-   - EarlyStopping, ReduceLROnPlateau, TensorBoard, and ModelCheckpoint are configured to monitor training and validation performance, log metrics, and save the best model.
+   - Trains the model with different learning rates (`1e-3`, `5e-4`, `1e-4`) and stores training histories.
+   - Plots validation loss curves for each learning rate to compare performance.
 
-8. **Model Training**
+8. **Model Evaluation**
 
-   - The model is trained on the training set and validated on the validation set for 10 epochs.
-   - Training progress and metrics are displayed in the notebook output.
+   - Predicts on the validation set and computes predicted labels.
+   - Calculates true labels from the validation set.
+   - Generates a classification report and confusion matrix using scikit-learn to assess model performance.
 
-9. **Results Visualization**
-
-   - Training and validation accuracy are plotted using Pandas and Matplotlib to visualize model performance over epochs.
-
-10. **Model Saving**
-    - The best model is saved as `best.keras` for future use.
+9. **Model Saving**
+   - The best model is saved as `best.keras` for future use.
 
 For step-by-step code and outputs, see `notebook.ipynb` in this repository.
 
