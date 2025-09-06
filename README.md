@@ -10,63 +10,41 @@ The dataset used is the [Lung and Colon Cancer Histopathological Images](https:/
 
 ## Project Structure
 
-- `notebook.ipynb`: Main Jupyter notebook for data analysis and model training.
+- `notebook.ipynb`: Implements a custom Convolutional Neural Network (CNN) from scratch for multi-class classification of lung and colon cancer images. Includes data exploration, model building, training, learning rate tuning, and evaluation.
+- `transfer_learning.ipynb`: Uses transfer learning with ResNet50 as a feature extractor, followed by fine-tuning. Includes preprocessing, model construction, training, fine-tuning, and evaluation.
 - `data_config.yaml`: Configuration file for dataset paths and parameters.
+- `best.keras`: Saved best model checkpoint.
+- `lung_colon_image_set/`: Folder containing the image dataset.
 
-## Getting Started
+## Workflow Overview
 
-1. Download the dataset from Kaggle and extract it to the project folder.
-2. Install required Python packages (see notebook for details).
-3. Run the notebook to train and evaluate the model.
+Both notebooks address the same classification problem and use the same dataset, but differ in modeling approach:
 
-## Workflow Details (notebook.ipynb Specific)
+### 1. Custom CNN Approach (`notebook.ipynb`)
 
-The workflow in `notebook.ipynb` is organized as follows:
+- **Data Loading & Exploration:** Loads and visualizes images, splits into train/validation sets.
+- **Model Architecture:** Builds a CNN from scratch using Conv2D, MaxPooling2D, GlobalAveragePooling2D, Dense, BatchNormalization, and Dropout layers.
+- **Training:** Trains with different learning rates, uses callbacks for early stopping and best model saving.
+- **Evaluation:** Plots loss curves, computes classification report and confusion matrix.
+- **Prediction:** Includes code for single image prediction.
 
-1. **Library Imports**
+### 2. Transfer Learning Approach (`transfer_learning.ipynb`)
 
-   - Imports essential libraries: NumPy, Pandas, Matplotlib, PIL, OpenCV, TensorFlow, and Keras for data handling, visualization, and modeling.
+- **Data Loading & Preprocessing:** Loads images, applies ResNet50-specific preprocessing.
+- **Feature Extraction:** Uses ResNet50 (pre-trained on ImageNet) as a frozen feature extractor.
+- **Custom Head:** Adds new layers for classification on top of ResNet50.
+- **Training:** Trains only the custom head initially, then fine-tunes deeper layers of ResNet50.
+- **Fine Tuning:** Unfreezes part of ResNet50 and retrains with a lower learning rate.
+- **Evaluation:** Plots training/validation curves, evaluates performance after fine-tuning.
 
-2. **Data Extraction**
+## How to Use
 
-   - The dataset is provided as `archive.zip`. Extraction code is included (commented out) to extract images into `lung_colon_image_set/`.
-
-3. **Data Exploration & Visualization**
-
-   - Visualizes random images from each lung cancer class (`lung_aca`, `lung_n`, `lung_scc`) using Matplotlib and PIL to understand the dataset.
-
-4. **Dataset Preparation**
-
-   - Loads images using TensorFlow's `image_dataset_from_directory`, inferring labels from folder names.
-   - Splits the dataset into training and validation sets (80/20 split), resizes images to 256x256 pixels, and normalizes pixel values to [0, 1].
-
-5. **Model Construction**
-
-   - Defines a function to build a Sequential CNN model with Conv2D, MaxPooling2D, GlobalAveragePooling2D, Dense, BatchNormalization, and Dropout layers.
-   - The model is designed for multi-class classification (3 classes).
-
-6. **Callbacks Setup**
-
-   - Configures EarlyStopping, ReduceLROnPlateau, TensorBoard, and ModelCheckpoint to monitor training, log metrics, and save the best model.
-
-7. **Learning Rate Tuning**
-
-   - Trains the model with different learning rates (`1e-3`, `5e-4`, `1e-4`) and stores training histories.
-   - Plots validation loss curves for each learning rate to compare performance.
-
-8. **Model Evaluation**
-
-   - Predicts on the validation set and computes predicted labels.
-   - Calculates true labels from the validation set.
-   - Generates a classification report and confusion matrix using scikit-learn to assess model performance.
-
-9. **Model Saving**
-   - The best model is saved as `best.keras` for future use.
-
-For step-by-step code and outputs, see `notebook.ipynb` in this repository.
+1. Download and extract the dataset from Kaggle.
+2. Install required Python packages (see notebooks for details).
+3. Run either notebook to train and evaluate a model:
+   - Use `notebook.ipynb` for a custom CNN approach.
+   - Use `transfer_learning.ipynb` for a transfer learning approach with ResNet50.
 
 ## References
 
 - [Kaggle Dataset](https://www.kaggle.com/datasets/andrewmvd/lung-and-colon-cancer-histopathological-images)
-
----
