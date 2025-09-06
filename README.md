@@ -12,9 +12,10 @@ The dataset used is the [Lung and Colon Cancer Histopathological Images](https:/
 
 - `notebook.ipynb`: Implements a custom Convolutional Neural Network (CNN) from scratch for multi-class classification of lung and colon cancer images. Includes data exploration, model building, training, learning rate tuning, and evaluation.
 - `transfer_learning.ipynb`: Uses transfer learning with ResNet50 as a feature extractor, followed by fine-tuning. Includes preprocessing, model construction, training, fine-tuning, and evaluation.
+- `inference.ipynb`: Demonstrates how to perform inference using the trained `best.keras` model on a single sample image. Includes code for loading the model, preparing the image, and displaying the predicted class and probability.
 - `data_config.yaml`: Configuration file for dataset paths and parameters.
-- `best.keras`: Saved best model checkpoint.
-- `lung_colon_image_set/`: Folder containing the image dataset.
+- `best.keras`: Saved best model checkpoint, ignored by gitignore.
+- `lung_colon_image_set/`: Folder containing the image dataset, ignored by gitignore
 
 ## Workflow Overview
 
@@ -44,6 +45,7 @@ Both notebooks address the same classification problem and use the same dataset,
 3. Run either notebook to train and evaluate a model:
    - Use `notebook.ipynb` for a custom CNN approach.
    - Use `transfer_learning.ipynb` for a transfer learning approach with ResNet50.
+4. Use `inference.ipynb` to test the trained model (`best.keras`) on new images and obtain predictions.
 
 ## References
 
